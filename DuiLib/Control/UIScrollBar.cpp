@@ -549,7 +549,6 @@ namespace DuiLib
 
 			m_nLastScrollOffset = 0;
 			m_nScrollRepeatDelay = 0;
-			m_pManager->SetTimer(this, DEFAULT_TIMERID, 50U);
 
 			if( ::PtInRect(&m_rcButton1, event.ptMouse) ) {
 				m_uButton1State |= UISTATE_PUSHED;
@@ -577,6 +576,8 @@ namespace DuiLib
 				m_uThumbState |= UISTATE_CAPTURED | UISTATE_PUSHED;
 				m_ptLastMouse = event.ptMouse;
 				m_nLastScrollPos = m_nScrollPos;
+				
+				m_pManager->SetTimer(this, DEFAULT_TIMERID, 50U);
 			}
 			else {
 				if( !m_bHorizontal ) {
@@ -626,13 +627,22 @@ namespace DuiLib
 		if( event.Type == UIEVENT_MOUSEMOVE )
 		{
 			if( (m_uThumbState & UISTATE_CAPTURED) != 0 ) {
-				__int64 fMouseRange = (event.ptMouse.y - m_ptLastMouse.y) * m_nRange;
 				if( !m_bHorizontal ) {
-					int vRange = m_rcItem.bottom - m_rcItem.top - (m_rcThumb.bottom - m_rcThumb.top) - 2 * m_cxyFixed.cx;
-					if (vRange != 0) m_nLastScrollOffset = fMouseRange / abs(vRange);
+					__int64 fMouseRange = (event.ptMouse.y - m_ptLastMouse.y) * m_nRange;
+					int nBtnSize = 0;
+					if(GetShowButton1()) nBtnSize += m_cxyFixed.cx;
+					if(GetShowButton2()) nBtnSize += m_cxyFixed.cx;
+					int vRange = m_rcItem.bottom - m_rcItem.top - (m_rcThumb.bottom - m_rcThumb.top) - nBtnSize;
+					if (vRange != 0){
+						m_nLastScrollOffset = fMouseRange / abs(vRange);
+					}
 				}
 				else {
-					int hRange = m_rcItem.right - m_rcItem.left - m_rcThumb.right + m_rcThumb.left - 2 * m_cxyFixed.cy;
+					__int64 fMouseRange = (event.ptMouse.x - m_ptLastMouse.x) * m_nRange;
+					int nBtnSize = 0;
+					if(GetShowButton1()) nBtnSize += m_cxyFixed.cy;
+					if(GetShowButton2()) nBtnSize += m_cxyFixed.cy;
+					int hRange = m_rcItem.right - m_rcItem.left - m_rcThumb.right + m_rcThumb.left - nBtnSize;
 					if (hRange != 0) m_nLastScrollOffset = fMouseRange / abs(hRange);
 				}
 			}
