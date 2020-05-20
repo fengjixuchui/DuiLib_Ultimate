@@ -175,7 +175,7 @@
               <IPAddress width="120" bordersize="1" bordercolor="#FF888888" textpadding="5"/>
               <IPAddressEx width="120" cursor="ibeam" bordersize="1" bordercolor="#FF888888" />
               <Label text="日期" autocalcwidth="true"/>
-              <DateTime width="120" bordersize="1" bordercolor="#FF888888" textpadding="3"/>
+              <DateTime width="180" bordersize="1" bordercolor="#FF888888" textpadding="3" />
               <Label text="系统热键" autocalcwidth="true"/>
               <HotKey width="100" bordersize="1" bordercolor="#FF888888"/>
             </HorizontalLayout>
@@ -194,8 +194,6 @@
 
         </VerticalLayout>
         <VerticalLayout name="rich_tab_panel" inset="2,2,2,2" vscrollbar="true">
-
-
           <Label height="1" bkimage="common/hor_line.png"/>
           <HorizontalLayout height="180" inset="0,6,0,6">
             <Label text="瓦片控件" textcolor="#FF000000" glowsize="0" font="font13" width="80"/>
@@ -265,9 +263,9 @@
         </VerticalLayout>
         
         <VerticalLayout name="ex_tab_panel" inset="2,2,2,2" vscrollbar="true">
-          <HorizontalLayout height="180">
+          <HorizontalLayout height="180" virtualwnd="mainpage" >
             <Label text="颜色控件" textcolor="#FF000000" glowsize="0" font="font13" width="80"/>
-            <ColorPalette name="Pallet" width="400" height="180" palletheight="160" barheight="14" thumbimage="common/cursor.png" />
+            <Include source="xml/color.xml" />
           </HorizontalLayout>
 
           <Label height="1" bkimage="common/hor_line.png"/>
