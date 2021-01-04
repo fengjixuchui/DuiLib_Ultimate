@@ -239,8 +239,9 @@ namespace DuiLib {
 	protected:
 		bool m_bFixedScrollbar;
 		bool m_bScrollSelect;
-		int m_iCurSel;
 		bool m_bMultiSel;
+		int m_iCurSel;
+		int m_iFirstSel;
 		CStdPtrArray m_aSelItems;
 		int m_iCurSelActivate;  // Ë«»÷µÄÁÐ
 		int m_iExpandedItem;
@@ -248,7 +249,6 @@ namespace DuiLib {
 		CListBodyUI* m_pList;
 		CListHeaderUI* m_pHeader;
 		TListInfoUI m_ListInfo;
-
 	};
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -282,6 +282,7 @@ namespace DuiLib {
 		DECLARE_DUICONTROL(CListHeaderUI)
 	public:
 		CListHeaderUI();
+		virtual ~CListHeaderUI();
 
 		LPCTSTR GetClass() const;
 		LPVOID GetInterface(LPCTSTR pstrName);
@@ -293,6 +294,8 @@ namespace DuiLib {
 		void SetScaleHeader(bool bIsScale);
 		bool IsScaleHeader() const;
 
+		void DoInit();
+		void DoPostPaint(HDC hDC, const RECT& rcPaint);
 	private:
 		bool m_bIsScaleHeader;
 	};
